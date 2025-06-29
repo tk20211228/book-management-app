@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { fetchBooks } from "@/utils/api";
 import { COLUMNS } from "../constants";
 import type { BookStatus } from "../types";
-import { fetchBooks } from "@/utils/api";
+import { useQuery } from "@tanstack/react-query";
+import BookCard from "./BookCard";
 
 type BoardColumnProps = {
   status: BookStatus;
@@ -12,7 +13,6 @@ const BoardColumn = (props: BoardColumnProps) => {
   const label = columnData?.label;
   const title = columnData?.title;
 
-  // 追加
   const {
     data: books = [],
     isLoading,
@@ -46,7 +46,7 @@ const BoardColumn = (props: BoardColumnProps) => {
       <div className="space-y-2">
         {/* 書き換え */}
         {books.map((book) => (
-          <p key={book.id}>📚 {book.title}</p>
+          <BookCard key={book.id} book={book} />
         ))}
       </div>
     </section>
